@@ -1,0 +1,17 @@
+name: Python Docker Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Build the Docker Image
+      # This tells GitHub's robot to do exactly what you just did on your laptop!
+      run: docker build -t ads-app:latest .
