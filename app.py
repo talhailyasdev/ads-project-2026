@@ -15,5 +15,6 @@ def home():
     # FAKE_AWS_KEY = "AKIAIOSFODNN7EXAMPLE"
     return render_template('index.html', tasks=roadmap_items)
 
+# FAKE_API_KEY = "xoxp-123456789012-123456789012-123456789012-123456789012"
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
