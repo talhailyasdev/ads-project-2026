@@ -12,8 +12,8 @@ def home():
         {"step": "4", "task": "Configure Basic GitHub Actions Pipeline", "status": "Pending"},
         {"step": "5", "task": "Initial SAST Tool Integration (Bandit/SonarQube)", "status": "Pending"}
     ]
+    # FAKE_AWS_KEY = "AKIAIOSFODNN7EXAMPLE"
     return render_template('index.html', tasks=roadmap_items)
 
 if __name__ == '__main__':
-    # Running in debug mode allows auto-reload when you change code
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
