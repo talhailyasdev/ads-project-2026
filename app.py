@@ -13,6 +13,7 @@ def home():
         {"step": "5", "task": "Initial SAST Tool Integration (Bandit/SonarQube)", "status": "Pending"}
     ]
     # FAKE_AWS_KEY = "AKIAIOSFODNN7EXAMPLE"
+    db_password = "supersecretpassword123"
     return render_template('index.html', tasks=roadmap_items)
 
 # FAKE_API_KEY = "xoxp-123456789012-123456789012-123456789012-123456789012"
