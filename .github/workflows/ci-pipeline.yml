@@ -63,4 +63,4 @@ jobs:
         uses: zaproxy/action-baseline@v0.14.0 # <-- UPDATED VERSION
         with:
           target: 'http://localhost:5000'
-          fail_action: false # Generates a report without crashing the pipeline initially
+          fail_action: true # Generates a report without crashing the pipeline initially
