@@ -12,10 +12,10 @@ def home():
         {"step": "4", "task": "Configure Basic GitHub Actions Pipeline", "status": "Pending"},
         {"step": "5", "task": "Initial SAST Tool Integration (Bandit/SonarQube)", "status": "Pending"}
     ]
-    # FAKE_AWS_KEY = "AKIAIOSFODNN7EXAMPLE"
-    db_password = "supersecretpassword123"
+    
+    
     return render_template('index.html', tasks=roadmap_items)
 
-# FAKE_API_KEY = "xoxp-123456789012-123456789012-123456789012-123456789012"
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
