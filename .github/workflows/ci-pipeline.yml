@@ -22,10 +22,15 @@ jobs:
       # --- SAST INTEGRATION (Updated Action) ---
       - name: SonarCloud Scan
         if: always() # Runs this scan even if Gitleaks finds a secret and fails
-        uses: SonarSource/sonarqube-scan-action@master # Updated to fix deprecation error
+        uses: SonarSource/sonarqube-scan-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "https://sonarcloud.io"
+        with:
+          args: >
+            -Dsonar.organization=talhailyasdev
+            -Dsonar.projectKey=talhailyasdev_ads-project-2026
 
   # 2. Second Job: Docker Build
   build:
