@@ -19,18 +19,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- SAST INTEGRATION (Updated Action) ---
+      # --- SAST INTEGRATION ---
       - name: SonarCloud Scan
         if: always() # Runs this scan even if Gitleaks finds a secret and fails
-        uses: SonarSource/sonarqube-scan-action@master
+        uses: SonarSource/sonarqube-scan-action@master 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: "https://sonarcloud.io"
-        with:
-          args: >
-            -Dsonar.organization=talhailyasdev
-            -Dsonar.projectKey=talhailyasdev_ads-project-2026
 
   # 2. Second Job: Docker Build
   build:
