@@ -60,7 +60,7 @@ jobs:
 
       # 3. Attack the running app with ZAP
       - name: OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.12.0
+        uses: zaproxy/action-baseline@v0.14.0 # <-- UPDATED VERSION
         with:
           target: 'http://localhost:5000'
           fail_action: false # Generates a report without crashing the pipeline initially
