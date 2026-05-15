@@ -12,16 +12,24 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Important: Gitleaks needs the full history
+          fetch-depth: 0 # Important: Gitleaks & SonarCloud need the full history
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # --- SAST INTEGRATION ---
+      - name: SonarCloud Scan
+        if: always() # Runs this scan even if Gitleaks finds a secret and fails
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   # 2. Second Job: Docker Build
   build:
-    needs: security-scan # CRITICAL: This stops the build if secrets are found!
+    needs: security-scan # CRITICAL: This stops the build if secrets or bad code are found!
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
