@@ -19,10 +19,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- SAST INTEGRATION ---
+      # --- SAST INTEGRATION (Updated Action) ---
       - name: SonarCloud Scan
         if: always() # Runs this scan even if Gitleaks finds a secret and fails
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@master # Updated to fix deprecation error
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -13,9 +13,7 @@ def home():
         {"step": "5", "task": "Initial SAST Tool Integration (Bandit/SonarQube)", "status": "Pending"}
     ]
     
-    
     return render_template('index.html', tasks=roadmap_items)
-
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=False)
