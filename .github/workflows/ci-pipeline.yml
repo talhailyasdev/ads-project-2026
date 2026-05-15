@@ -27,7 +27,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # 2. Second Job: Docker Build & Container Scan
+  # 2. Second Job: Docker Build & Security Scans (Trivy + ZAP)
   build:
     needs: security-scan # CRITICAL: This stops the build if secrets or bad code are found!
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
       - name: Build the Docker Image
         run: docker build -t ads-app:latest .
 
-      # --- WEEK 3: TRIVY CONTAINER SCAN ---
+      # --- WEEK 3 Phase 2: TRIVY CONTAINER SCAN ---
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -48,3 +48,19 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      # --- WEEK 3 Phase 3: OWASP ZAP DAST SCAN ---
+      # 1. Start the container in the background so ZAP has something to attack
+      - name: Start Application Container
+        run: docker run -d -p 5000:5000 --name test-app ads-app:latest
+
+      # 2. Give the web server 10 seconds to wake up
+      - name: Wait for server to start
+        run: sleep 10
+
+      # 3. Attack the running app with ZAP
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'http://localhost:5000'
+          fail_action: false # Generates a report without crashing the pipeline initially
